@@ -18,7 +18,12 @@ public class ChatController {
 
     @GetMapping("/chat")
     public String chat(@RequestParam("message") String message){
-return chatClient.prompt(message).call().content();
+return chatClient.prompt()
+        .system("Your an internal HR Assistand. Your role is to help\s Employee with questions related to leave policy, working hours,benifits,and code of conduct. If a user ask anything outside of these topics, \s kindly inform them that you can only assist with only HR related ."
+                 )
+        .user(message)
+        .call()
+        .content();
 
     }
 
